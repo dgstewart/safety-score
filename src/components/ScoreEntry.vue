@@ -1,31 +1,49 @@
 <template>
-  <div class="scoreEntryContainer">
-    <div class="cover">
-      <i class="fas fa-trash"></i>
+  <transition name="fade">
+    <div v-if="shown" class="scoreEntryContainer" @click="remove()">
+      <div class="cover">
+        <i class="fas fa-trash"></i>
+      </div>
+      <div class="titleBubble">
+        <span>
+          {{ dayNum }}
+        </span>
+      </div>
+      <div class="score row">
+        <i class="fas fa-tachometer-alt"></i>
+        <span class="scoreSpan">{{ score }}</span>
+      </div>
+      <div class="distance row">
+        <i class="fas fa-ruler"></i>
+        <span>
+          {{ distance }}
+          <span class="unit">(mi)</span>
+        </span>
+      </div>
     </div>
-    <div class="titleBubble">
-      <span>
-        {{ dayNum }}
-      </span>
-    </div>
-    <div class="score row">
-      <i class="fas fa-tachometer-alt"></i>
-      <span class="scoreSpan">{{ score }}</span>
-    </div>
-    <div class="distance row">
-      <i class="fas fa-ruler"></i>
-      <span>
-        {{ distance }}
-        <span class="unit">(mi)</span>
-      </span>
-    </div>
-  </div>
+  </transition>
 </template>
 
 <script>
 export default {
   name: "ScoreEntry",
-  props: ["dayNum", "score", "distance"],
+  props: ["id", "dayNum", "score", "distance"],
+  data() {
+    return {
+      shown: false,
+    };
+  },
+  methods: {
+    remove() {
+      setTimeout(() => {
+        this.$store.commit("removeScore", this.id);
+      }, 300);
+      this.shown = false;
+    },
+  },
+  mounted() {
+    this.shown = true;
+  },
 };
 </script>
 
@@ -96,4 +114,13 @@ export default {
 .distance > span > .unit
   color: $secondary-text-color
   font-size: .75rem
+
+.fade-enter-active,
+.fade-leave-active
+  transition: opacity .3s ease-in-out, transform .3s ease-in-out
+
+.fade-enter-from,
+.fade-leave-to
+  opacity: 0
+  transform: scale(.9) translateY(50%)
 </style>

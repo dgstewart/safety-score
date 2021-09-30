@@ -4,12 +4,12 @@ export default createStore({
   state: {
     loaded: false,
     scores: [
-      { id: 0, score: 94, distance: 193 },
-      { id: 1, score: 95, distance: 27 },
-      { id: 2, score: 100, distance: 32 },
-      { id: 3, score: 99, distance: 44 },
+      // { id: 0, score: 94, distance: 193 },
+      // { id: 1, score: 95, distance: 27 },
+      // { id: 2, score: 100, distance: 32 },
+      // { id: 3, score: 99, distance: 50 },
     ],
-    targetScore: 96,
+    targetScore: 99.5,
   },
   getters: {
     currentScore: (state) => {
@@ -41,9 +41,15 @@ export default createStore({
     addNewScore(state, payload) {
       state.scores.push({
         id: Math.floor(Math.random() * 100000),
+        date: payload.date,
         score: payload.score,
         distance: payload.distance,
       });
+      localStorage.setItem("scores", JSON.stringify(state.scores));
+    },
+    removeScore(state, payload) {
+      for (let i = 0; i < state.scores.length; i++)
+        if (state.scores[i].id == payload) state.scores.splice(i, 1);
       localStorage.setItem("scores", JSON.stringify(state.scores));
     },
   },

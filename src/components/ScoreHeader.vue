@@ -2,25 +2,33 @@
   <div class="scoreHeaderContainer">
     <div>
       <span class="currentScoreSpan">
-        {{ parseInt($store.getters.currentScore) }}
+        {{ currentScore }}
         <span class="hint">Current Score</span>
       </span>
       <i class="fas fa-arrow-right"></i>
       <span class="targetScoreSpan">
-        {{ $store.state.targetScore }}
+        {{ Math.round($store.state.targetScore) }}
         <span class="hint">Target Score</span>
       </span>
     </div>
 
-    <span class="milesToFix">
-      {{ $store.getters.milesToFix }}
-    </span>
+    <div class="milesToFix">
+      <span>{{ Math.round($store.getters.milesToFix) }}</span>
+      <span class="hint">Miles to go!</span>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "ScoreHeader",
+  computed: {
+    currentScore() {
+      let tmp = this.$store.getters.currentScore;
+      if (!isNaN(tmp)) return Math.round(tmp);
+      else return 0;
+    },
+  },
 };
 </script>
 
@@ -45,8 +53,12 @@ export default {
     align-items: center
     gap: 1rem
 
+  @media screen and (max-width: 900px)
+    *
+      font-size: 3rem
 
-.currentScoreSpan, .targetScoreSpan
+
+.currentScoreSpan, .targetScoreSpan, .milesToFix
   position: relative
   padding-bottom: .25rem
 
@@ -58,4 +70,7 @@ export default {
   font-size: .95rem
   white-space: nowrap
   color: $secondary-text-color
+
+  @media screen and (max-width: 900px)
+    font-size: .65rem
 </style>

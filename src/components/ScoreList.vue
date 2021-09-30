@@ -2,7 +2,7 @@
   <div class="scoreList">
     <ScoreEntry
       v-for="(score, index) in $store.state.scores"
-      :key="index"
+      :key="score.id"
       :id="score.id"
       :dayNum="index + 1"
       :score="score.score"
