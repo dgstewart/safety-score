@@ -5,7 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build-docker": "npm run lint && docker build -t dgstewart16/safety-score .",
+    "push-docker": "docker push dgstewart16/safety-score",
+    "full-docker": "npm run build-docker && npm run push-docker"
   },
   "dependencies": {
     "core-js": "^3.6.5",
