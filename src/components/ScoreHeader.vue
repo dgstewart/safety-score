@@ -1,13 +1,19 @@
 <template>
   <div class="scoreHeaderContainer">
-    <span class="currentScoreSpan">
-      {{ parseInt($store.getters.currentScore) }}
-      <span class="hint">Current Score</span>
-    </span>
-    <i class="fas fa-arrow-right"></i>
-    <span class="targetScoreSpan">
-      {{ $store.state.targetScore }}
-      <span class="hint">Target Score</span>
+    <div>
+      <span class="currentScoreSpan">
+        {{ parseInt($store.getters.currentScore) }}
+        <span class="hint">Current Score</span>
+      </span>
+      <i class="fas fa-arrow-right"></i>
+      <span class="targetScoreSpan">
+        {{ $store.state.targetScore }}
+        <span class="hint">Target Score</span>
+      </span>
+    </div>
+
+    <span class="milesToFix">
+      {{ $store.getters.milesToFix }}
     </span>
   </div>
 </template>
@@ -22,7 +28,7 @@ export default {
 <style scoped lang="sass">
 .scoreHeaderContainer
   display: flex
-  flex-direction: row
+  flex-direction: column
   align-items: center
   gap: 1rem
   align-self: center
@@ -32,6 +38,13 @@ export default {
 
   i
     font-size: 2rem
+
+  div
+    display: flex
+    flex-direction: row
+    align-items: center
+    gap: 1rem
+
 
 .currentScoreSpan, .targetScoreSpan
   position: relative

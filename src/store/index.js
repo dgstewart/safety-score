@@ -9,7 +9,7 @@ export default createStore({
       { id: 2, score: 100, distance: 32 },
       { id: 3, score: 99, distance: 44 },
     ],
-    targetScore: 99.5,
+    targetScore: 96,
   },
   getters: {
     currentScore: (state) => {
@@ -20,6 +20,18 @@ export default createStore({
         denominator += element.distance;
       }
       return numerator / denominator;
+    },
+    milesToFix: (state) => {
+      let numerator = 0;
+      let denominator = 0;
+      for (let element of state.scores) {
+        numerator += element.score * element.distance;
+        denominator += element.distance;
+      }
+      return (
+        (state.targetScore * denominator - numerator) /
+        (100 - state.targetScore)
+      );
     },
   },
   mutations: {
