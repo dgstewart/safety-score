@@ -13,7 +13,7 @@
     </div>
 
     <div class="milesToFix">
-      <span>{{ Math.round($store.getters.milesToFix) }}</span>
+      <span>{{ milesToGo }}</span>
       <span class="hint">Miles to go!</span>
     </div>
   </div>
@@ -27,6 +27,11 @@ export default {
       let tmp = this.$store.getters.currentScore;
       if (!isNaN(tmp)) return Math.round(tmp);
       else return 0;
+    },
+    milesToGo() {
+      if (this.currentScore == Math.round(this.$store.state.targetScore))
+        return 0;
+      return Math.max(Math.round(this.$store.getters.milesToFix), 0);
     },
   },
 };
@@ -56,7 +61,6 @@ export default {
   @media screen and (max-width: 900px)
     *
       font-size: 3rem
-
 
 .currentScoreSpan, .targetScoreSpan, .milesToFix
   position: relative

@@ -23,11 +23,12 @@
             :placeholder="0"
             min="1"
             max="100"
+            @keyup.enter="focusDistance()"
           />
         </div>
       </div>
       <div id="distanceInputDiv" class="formInput">
-        <label>Distnace</label>
+        <label>Distance</label>
         <div class="input">
           <i class="fas fa-ruler"></i>
           <input
@@ -36,6 +37,7 @@
             type="number"
             :placeholder="0"
             min="1"
+            @keyup.enter="addScore()"
           />
           <span>mi.</span>
         </div>
@@ -125,6 +127,9 @@ export default {
     dismissPopup() {
       this.$emit("dismissPopup");
     },
+    focusDistance() {
+      document.getElementById("distanceInput").focus();
+    },
     addScore() {
       let tmpDate = new Date(this.startTime.time);
       let timeString =
@@ -134,10 +139,12 @@ export default {
         tmpDate.getDate() +
         "/" +
         tmpDate.getFullYear();
+      let tmpScore = Math.max(Math.min(this.inputScore, 100), 0);
+      let tmpDistance = Math.max(0, this.inputDistance);
       let submitData = {
         date: timeString,
-        score: this.inputScore,
-        distance: this.inputDistance,
+        score: tmpScore,
+        distance: tmpDistance,
       };
       this.$store.commit("addNewScore", submitData);
       this.$emit("dismissPopup");
@@ -152,6 +159,7 @@ export default {
       tmpDate.getDate() +
       "/" +
       tmpDate.getFullYear();
+    document.getElementById("scoreInput").focus();
   },
 };
 </script>
@@ -279,6 +287,7 @@ export default {
   background: transparent
   font-size: 1.5rem
   min-width: 0
+  width: 100%
   outline: none
   border: none
   border-radius: 0 .5rem .5rem 0
