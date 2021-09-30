@@ -35,6 +35,9 @@ export default createStore({
     },
   },
   mutations: {
+    setTarget(state, payload) {
+      state.targetScore = payload;
+    },
     setScores(state, payload) {
       state.scores = payload;
     },

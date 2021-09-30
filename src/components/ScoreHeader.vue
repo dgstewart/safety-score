@@ -6,7 +6,7 @@
         <span class="hint">Current Score</span>
       </span>
       <i class="fas fa-arrow-right"></i>
-      <span class="targetScoreSpan">
+      <span class="targetScoreSpan" @click="changeTarget()">
         {{ Math.round($store.state.targetScore) }}
         <span class="hint">Target Score</span>
       </span>
@@ -32,6 +32,12 @@ export default {
       if (this.currentScore == Math.round(this.$store.state.targetScore))
         return 0;
       return Math.max(Math.round(this.$store.getters.milesToFix), 0);
+    },
+  },
+  methods: {
+    changeTarget() {
+      let target = prompt("Please enter your target");
+      this.$store.commit("setTarget", Math.min(Math.max(target, 0), 100));
     },
   },
 };
@@ -65,6 +71,9 @@ export default {
 .currentScoreSpan, .targetScoreSpan, .milesToFix
   position: relative
   padding-bottom: .25rem
+
+.targetScoreSpan
+  cursor: pointer
 
 .hint
   position: absolute
