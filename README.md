@@ -6,7 +6,7 @@ Project designed to assist in calculating the needed miles to correct a Tesla Sa
 
 ## Features
 
-- Add Daily Score and Distaances
+- Add Daily Score and Distances
 - Calculate Safety Score
 - Calculate miles needed to reach your Target Score
 - Change Target Score
