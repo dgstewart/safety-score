@@ -1,24 +1,46 @@
-# safety-score
 
-## Project setup
-```
-npm install
+# Safety Score Calculator
+
+Project designed to assist in calculating the needed miles to correct a Tesla Safety Score.
+
+
+## Features
+
+- Add Daily Score and Distaances
+- Calculate Safety Score
+- Calculate miles needed to reach your Target Score
+- Change Target Score
+
+## Tech Stack
+
+**Client:** Vue, Vuex, Sass
+
+**Server:** Node, Express.js
+## Demo
+[Live Demo](https://safety.sfnet.app)
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://gitlab.sfnet.app/dstewart/safety-score
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+Go to the project directory
+
+```bash
+  cd safety-score
 ```
 
-### Compiles and minifies for production
-```
-npm run build
+Install dependencies
+
+```bash
+  npm install
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+Start the server
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```bash
+  npm run serve
+```
