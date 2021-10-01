@@ -37,6 +37,7 @@ export default createStore({
   mutations: {
     setTarget(state, payload) {
       state.targetScore = payload;
+      localStorage.setItem("targetScore", JSON.stringify(state.targetScore));
     },
     setScores(state, payload) {
       state.scores = payload;
@@ -63,6 +64,11 @@ export default createStore({
         !!localStorage.getItem("scores")
       )
         commit("setScores", JSON.parse(localStorage.getItem("scores")));
+      if (
+        localStorage.getItem("targetScore") != "" &&
+        !!localStorage.getItem("targetScore")
+      )
+        commit("setTarget", JSON.parse(localStorage.getItem("targetScore")));
       state.loaded = true;
     },
   },

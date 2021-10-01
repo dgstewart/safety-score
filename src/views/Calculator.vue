@@ -1,11 +1,14 @@
 <template>
   <div class="calculator">
     <transition name="fade">
-      <AddScorePopup @dismissPopup="dismissPopup()" v-if="popupVisible" />
+      <AddScorePopup
+        @dismissPopup="dismissAddScorePopup()"
+        v-if="addScorePopupVisible"
+      />
     </transition>
     <ScoreHeader />
     <ScoreList msg="Welcome to Your Vue.js App" />
-    <AddButton id="userAddButton" @click="showPopup()" />
+    <AddButton id="userAddButton" @click="showAddScorePopup()" />
   </div>
 </template>
 
@@ -26,15 +29,15 @@ export default {
   },
   data() {
     return {
-      popupVisible: false,
+      addScorePopupVisible: false,
     };
   },
   methods: {
-    showPopup() {
-      this.popupVisible = true;
+    showAddScorePopup() {
+      this.addScorePopupVisible = true;
     },
-    dismissPopup() {
-      this.popupVisible = false;
+    dismissAddScorePopup() {
+      this.addScorePopupVisible = false;
     },
   },
 };

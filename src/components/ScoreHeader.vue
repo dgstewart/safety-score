@@ -1,12 +1,20 @@
 <template>
   <div class="scoreHeaderContainer">
+    <teleport to="body">
+      <transition name="fade">
+        <ChangeTargetPopup
+          @dismissPopup="dismissTargetScorePopup()"
+          v-if="targetScorePopupVisible"
+        />
+      </transition>
+    </teleport>
     <div>
       <span class="currentScoreSpan">
         {{ currentScore }}
         <span class="hint">Current Score</span>
       </span>
       <i class="fas fa-arrow-right"></i>
-      <span class="targetScoreSpan" @click="changeTarget()">
+      <span class="targetScoreSpan" @click="showTargetScorePopup()">
         {{ Math.round($store.state.targetScore) }}
         <span class="hint">Target Score</span>
       </span>
@@ -20,8 +28,16 @@
 </template>
 
 <script>
+import ChangeTargetPopup from "@/components/ChangeTargetPopup.vue";
+
 export default {
   name: "ScoreHeader",
+  components: { ChangeTargetPopup },
+  data() {
+    return {
+      targetScorePopupVisible: false,
+    };
+  },
   computed: {
     currentScore() {
       let tmp = this.$store.getters.currentScore;
@@ -35,9 +51,11 @@ export default {
     },
   },
   methods: {
-    changeTarget() {
-      let target = prompt("Please enter your target");
-      this.$store.commit("setTarget", Math.min(Math.max(target, 0), 100));
+    showTargetScorePopup() {
+      this.targetScorePopupVisible = true;
+    },
+    dismissTargetScorePopup() {
+      this.targetScorePopupVisible = false;
     },
   },
 };
@@ -86,4 +104,13 @@ export default {
 
   @media screen and (max-width: 900px)
     font-size: .65rem
+
+.fade-enter-active,
+.fade-leave-active
+  transition: opacity 0.1s ease-in-out, transform .1s ease-in-out
+
+.fade-enter-from,
+.fade-leave-to
+  opacity: 0
+  transform: scale(1.1)
 </style>
